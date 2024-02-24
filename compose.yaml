@@ -1,17 +1,6 @@
+version: '3.8'
 
 services:
-
-  server:
-    build:
-      context: ./backend
-    environment:
-      NODE_ENV: production
-    ports:
-      - 8787:8787
-    depends_on:
-      - db
-  
-  
   db:
     image: postgres:16
     restart: always
@@ -29,32 +18,38 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-  
-  frontend:
-    image: node:alpine
-    build:
-      context: ./frontend
-    ports:
-      - 5173:5173
-    environment:
-      NODE_ENV: production
-    depends_on:
-      - server
-    develop:
-      watch:
-        - action: sync
-          path: ./frontend
-          target: /src
-          ignore:
-            - node_modules/
-        - action: rebuild
-          path: package.json
+
+  # Running locally for dev so i can hot reload
+  # backend:
+  #   build: 
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - ./backend:/app
+  #   ports:
+  #     - 8787:8787
+  #   environment:
+  #     - NODE_ENV=development
+  #   command: npm run dev
+  #   depends_on:
+  #     - db
+
+  # frontend:
+  #   build: 
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - ./frontend:/app
+  #     - /app/node_modules
+  #   ports:
+  #     - 5173:5173
+  #   environment:
+  #     - NODE_ENV=development
+  #   command: npm run dev
+  #   depends_on:
+  #     - backend
+    
+
 
 volumes:
   db-data:
-
-
-# Here you can define your secrets. Secrets are used to pass sensitive
-#   db-password:
-#     file: db/password.txt
-

@@ -2,9 +2,15 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import useFetchData from './FetchData'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const { data, loading, error } = useFetchData();
+  const [todos, setTodos] = useState<string>("");
+
+  function handleAdd() {
+
 
   return (
     <>
@@ -22,8 +28,22 @@ function App() {
           count is {count}
         </button>
         <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+          Edit <code>src/App.tsx</code> and save to asdfsdasdfasdfasdfasdffasdfsftest HMR
         </p>
+        <div>
+          <input type="text" value={todos} onChange={(e) => setTodos(e.target.value)}/>
+          <button onClick={handleAdd}>Add</button>
+          <p>{todos}</p>
+        
+          <p>
+            {error && <div>There was an error</div>}
+            {loading && <div>Loading...</div>}
+            {data.map((item) => (
+              <div key={item.id}>{item.task}</div>
+            ))
+            }
+          </p>
+        </div>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
