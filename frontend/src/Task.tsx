@@ -5,7 +5,7 @@ interface TaskProps {
 
 const Task = ({task}: TaskProps) => {
     return (
-        <div className="bg-slate-500">
+        <div className="bg-slate-500 ">
             {task}
         </div>
     )

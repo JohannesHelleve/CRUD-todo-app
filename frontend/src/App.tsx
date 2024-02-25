@@ -1,28 +1,23 @@
-import { useState } from 'react'
 import './App.css'
 import useFetchData from './FetchData'
 import Task from './Task';
+import InputTask from './InputTask';
 
 function App() {
   const { data, loading, error } = useFetchData();
-  const [todos, setTodos] = useState<string>("");
 
-  function handleAdd() {
-  }
+  
 
 
   return (
     <>
         <div>
-          <input type="text" value={todos} onChange={(e) => setTodos(e.target.value)}/>
-          <button onClick={handleAdd}>Add</button>
-          <p>{todos}</p>
-        
+          <InputTask/>       
           <p>
             {error && <div>There was an error</div>}
             {loading && <div>Loading...</div>}
             {data.map((item) => (
-              <Task key={item.id} task={item.task} />
+              <Task key={item.id} task={item.task}/>
             ))
             }
           </p>
