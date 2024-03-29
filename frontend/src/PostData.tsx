@@ -12,10 +12,14 @@ function usePostData(task: string){
             body: JSON.stringify({ task: task }),
         };
 
-        fetch('http://localhost:8787/todo', options)
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error(error));
+        const fetchData = async () => {
+            const res = await fetch('http://localhost:8787/todo', options)
+            console.log(res.status)
+            const data = await res.json()
+            console.log(data)
+        };
+
+        void fetchData();
 
     }
     , []);

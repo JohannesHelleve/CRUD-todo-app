@@ -19,7 +19,19 @@ app.get('/todo', async (req, res) => {
       res.status(500).send('Internal Server Error');
     }
   }
-  );
+);
+
+app.post('/todo', async (req, res) => {
+    try {
+      const { task } = req.body;
+      await pool.query('INSERT INTO todo (task) VALUES ($1)', [task]);
+      res.status(201).send('Task added!');
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    }
+  }
+);
 
 
 app.listen(PORT, async () => {

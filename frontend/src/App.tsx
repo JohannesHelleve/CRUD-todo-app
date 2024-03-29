@@ -1,10 +1,8 @@
 import './App.css'
-import useFetchData from './FetchData'
-import Task from './Task';
 import InputTask from './InputTask';
+import TaskList from './TaskList';
 
 function App() {
-  const { data, loading, error } = useFetchData();
 
   
 
@@ -13,14 +11,7 @@ function App() {
     <>
         <div>
           <InputTask/>       
-          <p>
-            {error && <div>There was an error</div>}
-            {loading && <div>Loading...</div>}
-            {data.map((item) => (
-              <Task key={item.id} task={item.task}/>
-            ))
-            }
-          </p>
+          <TaskList/>
         </div>
     </>
   )
