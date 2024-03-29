@@ -13,7 +13,7 @@ app.use(cors());
 app.get('/todo', async (req, res) => {
     try {
       const result = await pool.query('SELECT * FROM todo');
-      res.json(result.rows);
+      res.status(200).json(result.rows);
     } catch (err) {
       console.error(err);
       res.status(500).send('Internal Server Error');
