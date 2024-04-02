@@ -1,5 +1,5 @@
 import React from 'react';
-import useFetchData from './FetchData';
+import useFetchData from '../utils/FetchData';
 import Task from './Task';
 
 const TaskList: React.FC = () => {
@@ -15,9 +15,9 @@ const TaskList: React.FC = () => {
     }
 
     return (
-        <div>
+        <div className="w-full">
             {data.map((item) => (
-                <Task key={item.id} task={item.task} />
+                <Task id={item.id} task={item.task} />
             ))}
         </div>
     );
