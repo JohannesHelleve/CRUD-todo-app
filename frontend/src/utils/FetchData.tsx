@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { supabase } from '../../../backend/src/index';
 
 interface Data {
     id: number;
@@ -14,13 +15,17 @@ export default function useFetchData() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:8787/todo');
-                const data = await response.json();
+                const { data, error } = await supabase
+                    .from('todo')
+                    .select('*')
+                if (error) {
+                    setError(true);
+                    return;
+                }
                 setData(data);
+                setLoading(false);
             } catch (error) {
                 setError(true);
-            } finally {
-                setLoading(false);
             }
         };
         fetchData();

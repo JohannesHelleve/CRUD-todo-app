@@ -1,5 +1,5 @@
 import { deleteTask } from "../utils/DeleteData";
-import { BeakerIcon, XMarkIcon } from '@heroicons/react/24/solid'
+import { XMarkIcon } from '@heroicons/react/24/solid'
 
 interface TaskProps {
     id: number;

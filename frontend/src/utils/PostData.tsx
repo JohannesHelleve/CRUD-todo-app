@@ -1,22 +1,15 @@
 import { useEffect } from 'react';
+import { supabase } from '../../../backend/src/index';
 
 function usePostData(task: string){
     
     useEffect(() => {
 
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ task: task }),
-        };
-
         const fetchData = async () => {
-            const res = await fetch('http://localhost:8787/todo', options)
+            const res = await supabase
+                .from('todo')
+                .insert([{ task: task }])
             console.log(res.status)
-            const data = await res.json()
-            console.log(data)
         };
 
         void fetchData();

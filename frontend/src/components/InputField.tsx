@@ -1,17 +1,8 @@
 import { useState } from "react";
+import usePostData from "../utils/PostData";
 
 export default function InputField() {
     const [task, setTask] = useState<string>("");
-
-
-
-    const options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ task: task }),
-    };
 
     const handleSubmit = async () => {
         if (!task.trim()) {
@@ -20,14 +11,12 @@ export default function InputField() {
         }
 
         if (task.length > 50) {
-            alert('Max 40 characters allowed! Will soon be fixed!   ');
+            alert('Max 40 characters allowed! Will soon be fixed!');
             return;
         }
 
-        const res = await fetch('http://localhost:8787/todo', options)
-        console.log(res.status)
-        const message = await res.text()
-        console.log(message)
+        const data = task;
+        console.log(usePostData(data));
         setTask("");
     };
 
